@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Esomeprazole Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+        h1 { color: #2c3e50; }
+        .question { margin-bottom: 1.5em; padding: 1em; background: #fff; border-radius: 8px; box-shadow: 0 2px 6px #eee; }
+        .divider { border-top: 1px solid #eee; margin: 1em 0; }
+        .score { font-size: 1.2em; color: #27ae60; margin-top: 2em; }
+        .correct { color: #27ae60; font-weight: bold; }
+        .incorrect { color: #c0392b; font-weight: bold; }
+        button { padding: 0.5em 1em; font-size: 1em; margin-top: 1em; }
+    </style>
+</head>
+<body>
+    <h1>Esomeprazole Quiz</h1>
+    <form id="quizForm">
+        <!-- Questions will be injected here by JS -->
+    </form>
+    <div id="score" class="score"></div>
+    <script>
+    const questions = [
+        {
+            q: "What is the primary clinical use of Esomeprazole?",
+            options: ["Antidepressant", "Proton pump inhibitor for acid-related disorders", "Antihypertensive", "Antibiotic"],
+            answer: 1
+        },
+        {
+            q: "Which of the following conditions is Esomeprazole commonly prescribed for?",
+            options: ["Peptic ulcer disease", "Gastroesophageal reflux disease (GERD)", "Hypertension", "Diabetes"],
+            answer: 1
+        },
+        {
+            q: "What is the mechanism of action of Esomeprazole?",
+            options: ["Blocks H2 receptors", "Inhibits the H+/K+ ATPase pump in gastric parietal cells", "Stimulates gastric acid secretion", "Neutralizes stomach acid directly"],
+            answer: 1
+        },
+        {
+            q: "What is a common side effect of Esomeprazole?",
+            options: ["Drowsiness", "Headache", "Rash", "Cough"],
+            answer: 1
+        },
+        {
+            q: "Esomeprazole should be used with caution in patients with which condition?",
+            options: ["Renal impairment", "Liver impairment", "Asthma", "Migraine"],
+            answer: 1
+        },
+        {
+            q: "True or False: Esomeprazole can interact with drugs that depend on gastric pH for absorption.",
+            options: ["True", "False"],
+            answer: 0
+        },
+        {
+            q: "What is the recommended timing for taking Esomeprazole?",
+            options: ["With food", "Before meals", "After meals", "At bedtime"],
+            answer: 1
+        },
+        {
+            q: "Which class of drugs does Esomeprazole belong to?",
+            options: ["H2 blockers", "Proton pump inhibitors", "Antacids", "Antibiotics"],
+            answer: 1
+        },
+        {
+            q: "Can Esomeprazole be used in combination therapy for Helicobacter pylori eradication?",
+            options: ["Yes", "No"],
+            answer: 0
+        },
+        {
+            q: "What is a potential long-term risk of chronic Esomeprazole use?",
+            options: ["Osteoporosis", "Hypertension", "Hyperglycemia", "Anemia"],
+            answer: 0
+        },
+        {
+            q: "What is the usual adult oral dose of Esomeprazole for GERD?",
+            options: ["10 mg once daily", "20 mg once daily", "40 mg once daily", "80 mg once daily"],
+            answer: 2
+        },
+        {
+            q: "Which enzyme metabolizes Esomeprazole in the liver?",
+            options: ["CYP2C19", "CYP3A4", "CYP2D6", "CYP1A2"],
+            answer: 0
+        },
+        {
+            q: "Esomeprazole is the S-isomer of which drug?",
+            options: ["Omeprazole", "Pantoprazole", "Lansoprazole", "Rabeprazole"],
+            answer: 0
+        },
+        {
+            q: "Which of the following is NOT a contraindication for Esomeprazole?",
+            options: ["Hypersensitivity to Esomeprazole", "Severe hepatic impairment", "Pregnancy", "Concomitant use with nelfinavir"],
+            answer: 2
+        },
+        {
+            q: "What is a rare but serious adverse effect of Esomeprazole?",
+            options: ["Clostridium difficile infection", "Insomnia", "Weight gain", "Alopecia"],
+            answer: 0
+        },
+        {
+            q: "Esomeprazole may decrease the absorption of which vitamin?",
+            options: ["Vitamin B12", "Vitamin D", "Vitamin C", "Vitamin K"],
+            answer: 0
+        },
+        {
+            q: "Which drug may have reduced efficacy when taken with Esomeprazole?",
+            options: ["Clopidogrel", "Paracetamol", "Amoxicillin", "Metformin"],
+            answer: 0
+        },
+        {
+            q: "True or False: Esomeprazole is available in both oral and intravenous formulations.",
+            options: ["True", "False"],
+            answer: 0
+        },
+        {
+            q: "What is the effect of Esomeprazole on gastric pH?",
+            options: ["Decreases pH", "Increases pH", "No effect", "Variable effect"],
+            answer: 1
+        },
+        {
+            q: "Which of the following is a common indication for short-term Esomeprazole use?",
+            options: ["Stress ulcer prophylaxis in hospitalized patients", "Chronic kidney disease", "Asthma", "Epilepsy"],
+            answer: 0
+        }
+    ];
+
+    function renderQuiz() {
+        const form = document.getElementById('quizForm');
+        form.innerHTML = '';
+        questions.forEach((q, i) => {
+            const div = document.createElement('div');
+            div.className = 'question';
+            const qText = document.createElement('strong');
+            qText.textContent = `${i+1}. ${q.q}`;
+            div.appendChild(qText);
+            const ul = document.createElement('ul');
+            q.options.forEach((opt, j) => {
+                const li = document.createElement('li');
+                const label = document.createElement('label');
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `q${i}`;
+                input.value = j;
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(' ' + opt));
+                li.appendChild(label);
+                ul.appendChild(li);
+            });
+            div.appendChild(ul);
+            form.appendChild(div);
+            const divider = document.createElement('div');
+            divider.className = 'divider';
+            form.appendChild(divider);
+        });
+        const submitBtn = document.createElement('button');
+        submitBtn.type = 'button';
+        submitBtn.textContent = 'Submit Quiz';
+        submitBtn.onclick = checkAnswers;
+        form.appendChild(submitBtn);
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        questions.forEach((q, i) => {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            const div = document.getElementsByClassName('question')[i];
+            if (selected) {
+                if (parseInt(selected.value) === q.answer) {
+                    score += 5;
+                    div.classList.remove('incorrect');
+                    div.classList.add('correct');
+                } else {
+                    div.classList.remove('correct');
+                    div.classList.add('incorrect');
+                }
+            } else {
+                div.classList.remove('correct');
+                div.classList.add('incorrect');
+            }
+        });
+        document.getElementById('score').textContent = `Your score: ${score} / ${questions.length * 5}`;
+    }
+
+    renderQuiz();
+    </script>
+</body>
+</html>
